@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residente - Portal de Seguridad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1abc9c;
+            --primary-gradient: linear-gradient(45deg, #1abc9c, #16a085);
+            --background-color: #f4f7f9;
+            --container-bg: #ffffff;
+            --text-color: #333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --error-color: #e74c3c;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color); margin: 0; padding: 20px;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        }
+        .container {
+            width: 100%; max-width: 900px; background: var(--container-bg); border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden; animation: fadeInUp 0.5s ease-out;
+        }
+        header { background: var(--primary-gradient); color: var(--header-text); padding: 20px 30px; text-align: center; }
+        header h1 { margin: 0; font-weight: 600; }
+        section { padding: 30px; }
+        .hidden { display: none; }
+        .login-container, .panel-container { display: flex; flex-direction: column; gap: 25px; }
+        h2, h3 { color: var(--primary-color); margin-top: 0; font-weight: 600; }
+        h2 { text-align: center; }
+        h3 { font-weight: 500; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        input[type="text"], input[type="password"] {
+            padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none; border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+        }
+        button {
+            padding: 12px 20px; background: var(--primary-gradient); color: white; border: none; border-radius: 8px;
+            cursor: pointer; font-size: 1rem; font-weight: 500; transition: all 0.2s ease-out;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        button:hover {
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
+            transform: translateY(-3px);
+        }
+        button:active {
+            transform: translateY(-1px) scale(0.98);
+            box-shadow: 0 2px 8px rgba(26, 188, 156, 0.2);
+        }
+        #notificaciones, #mensajes {
+            background: #fdfdfd; border: 1px solid var(--border-color); padding: 15px;
+            overflow-y: auto; border-radius: 8px;
+        }
+        #notificaciones { max-height: 250px; }
+        .log-entry { animation: fadeIn 0.5s ease-out; }
+        video {
+            width: 100%; border-radius: 8px; border: 2px solid var(--border-color);
+            margin-top: 10px; background-color: #222;
+        }
+        #chat { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+        #mensajes { height: 180px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-input-area { display: flex; gap: 10px; }
+        #mensajeInput { flex-grow: 1; }
+        .msg {
+            padding: 10px 15px; border-radius: 18px; max-width: 75%;
+            word-wrap: break-word; line-height: 1.4; animation: fadeIn 0.3s ease-out;
+        }
+        .msg-residente {
+            background: var(--primary-gradient); color: white; align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .msg-operador {
+            background: #e5e5ea; color: #333; align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .feedback-message {
+            padding: 12px; border-radius: 8px; text-align: center; font-weight: 500;
+            animation: fadeIn 0.3s; background-color: var(--error-color); color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+      <h1><i class="fas fa-home"></i> Portal del Residente</h1>
+    </header>
+
+    <section id="login-section">
+      <div class="login-container">
+        <h2><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h2>
+        <div id="login-feedback" class="feedback-message" style="display:none;"></div>
+        <input type="text" id="usuario" placeholder="Usuario">
+        <input type="password" id="contrasena" placeholder="Contraseña">
+        <button onclick="login()"><i class="fas fa-arrow-right-to-bracket"></i> Ingresar</button>
+      </div>
+    </section>
+
+    <section id="residente-section" class="hidden">
+      <div class="panel-container">
+        <div>
+            <h3><i class="fas fa-camera-retro"></i> Ver Cámaras</h3>
+            <video id="video" autoplay playsinline></video>
+        </div>
+        <hr style="border:none; border-top:1px solid var(--border-color); margin: 10px 0;">
+        <div>
+            <h3><i class="fas fa-comments"></i> Chat con Seguridad</h3>
+            <div id="chat">
+              <div id="mensajes"></div>
+              <div class="chat-input-area">
+                <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') enviarMensaje()">
+                <button onclick="enviarMensaje()"><i class="fas fa-paper-plane"></i></button>
+              </div>
+            </div>
+        </div>
+        <hr style="border:none; border-top:1px solid var(--border-color); margin: 10px 0;">
+        <div>
+            <h3><i class="fas fa-users"></i> Directorio de Residentes</h3>
+            <ul id="lista-residentes">
+                </ul>
+        </div>
+        <hr style="border:none; border-top:1px solid var(--border-color); margin: 10px 0;">
+        <div>
+            <h3><i class="fas fa-bell"></i> Notificaciones</h3>
+            <div id="notificaciones"></div>
+        </div>
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+      </div>
+    </section>
+</div>
+
+<script>
+// ======== UTILS =========
+function showFeedback(elementId, message) {
+    const feedbackEl = document.getElementById(elementId);
+    feedbackEl.textContent = message;
+    feedbackEl.style.display = 'block';
+    setTimeout(() => { feedbackEl.style.display = 'none'; }, 3000);
+}
+
+// ========= EVENTBUS (Observer) =========
+class EventBus {
+    constructor() { this.subscribers = {}; }
+    subscribe(topic, handler) {
+        if (!this.subscribers[topic]) this.subscribers[topic] = [];
+        this.subscribers[topic].push(handler);
+    }
+    publish(topic, data) { if (this.subscribers[topic]) { this.subscribers[topic].forEach(h => h(data)); } }
+}
+const bus = new EventBus();
+
+// Servicio de notificaciones
+class Notificador {
+    static mostrar(evento) {
+        const panel = document.getElementById("notificaciones");
+        const linea = document.createElement("div");
+        linea.className = 'log-entry';
+        linea.innerHTML = `🔔 <span style="font-weight:500;">[${new Date().toLocaleString()}]</span> ${evento}`;
+        panel.appendChild(linea);
+        panel.scrollTop = panel.scrollHeight;
+    }
+}
+bus.subscribe("acceso", Notificador.mostrar);
+bus.subscribe("ronda", Notificador.mostrar);
+bus.subscribe("alerta", Notificador.mostrar);
+
+// ========= FACTORY =========
+class UsuarioFactory {
+    static crearUsuario(tipo, usuario, contrasena) {
+        switch(tipo) {
+            case "Residente": return { tipo, usuario, contrasena };
+            default: return null;
+        }
+    }
+}
+
+// ========= LÓGICA DEL RESIDENTE =========
+let residente = null;
+
+async function login() {
+    const user = document.getElementById("usuario").value;
+    const pass = document.getElementById("contrasena").value;
+    
+    // Validamos las credenciales de forma simple
+    if (user === "residente" && pass === "1234") {
+        residente = UsuarioFactory.crearUsuario("Residente", user, pass);
+        document.getElementById("login-section").classList.add("hidden");
+        document.getElementById("residente-section").classList.remove("hidden");
+        
+        // Cargamos la cámara y el directorio de residentes al mismo tiempo
+        iniciarCamara();
+        await cargarResidentes();
+
+        Notificador.mostrar("✅ <strong>Residente inició sesión</strong>");
+    } else {
+        showFeedback("login-feedback", "Credenciales incorrectas.");
+    }
+}
+
+async function cargarResidentes() {
+    const lista = document.getElementById("lista-residentes");
+    lista.innerHTML = '';
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/residentes');
+        const residentes = await response.json();
+        
+        if (response.ok) {
+            residentes.forEach(r => {
+                const item = document.createElement("li");
+                item.className = 'residente-item';
+                item.innerHTML = `
+                    <i class="fas fa-user-circle"></i>
+                    <div class="residente-info">
+                        <h4>${r.nombre}</h4>
+                        <p>Apartamento: ${r.apartamento}</p>
+                        <p>Email: ${r.email}</p>
+                        <p>Teléfono: ${r.telefono}</p>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        } else {
+            console.error('Error al cargar residentes:', residentes.error);
+        }
+    } catch (error) {
+        console.error('Error de red al cargar residentes:', error);
+        showFeedback("login-feedback", "Error de conexión al cargar el directorio.");
+    }
+}
+
+function logout() {
+    document.getElementById("residente-section").classList.add("hidden");
+    document.getElementById("login-section").classList.remove("hidden");
+    document.getElementById("usuario").value = "";
+    document.getElementById("contrasena").value = "";
+    residente = null;
+    const video = document.getElementById("video");
+    if (video.srcObject) { video.srcObject.getTracks().forEach(track => track.stop()); }
+    Notificador.mostrar("⛔ <strong>Residente cerró sesión</strong>");
+}
+
+function iniciarCamara() {
+    const video = document.getElementById("video");
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => { console.error("Error cámara:", err); });
+    }
+}
+
+function enviarMensaje() {
+    const input = document.getElementById("mensajeInput");
+    if (!input.value) return;
+    const mensajes = document.getElementById("mensajes");
+    const linea = document.createElement("div");
+    linea.className = 'msg msg-residente';
+    linea.textContent = input.value;
+    mensajes.appendChild(linea);
+    const tempMsg = input.value;
+    input.value = "";
+    mensajes.scrollTop = mensajes.scrollHeight;
+    setTimeout(() => {
+        const respuesta = document.createElement("div");
+        respuesta.className = 'msg msg-operador';
+        respuesta.textContent = `Mensaje recibido: "${tempMsg}"`;
+        mensajes.appendChild(respuesta);
+        mensajes.scrollTop = mensajes.scrollHeight;
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

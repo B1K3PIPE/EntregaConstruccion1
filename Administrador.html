@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Sistema de Seguridad Avanzado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2a73c2;
+            --primary-gradient: linear-gradient(45deg, #2a73c2, #3e8ee8);
+            --background-color: #f4f7f9;
+            --container-bg: #ffffff;
+            --text-color: #333;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --error-color: #e74c3c;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            max-width: 900px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        header {
+            background: var(--primary-gradient);
+            color: var(--header-text);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .btn {
+            background: var(--primary-color);
+            color: var(--header-text);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn:hover {
+            background: #3e8ee8;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: var(--error-color);
+            margin-left: 10px;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .feedback-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        .feedback-message.error {
+            background-color: #fcebeb;
+            color: var(--error-color);
+        }
+        .feedback-message.success {
+            background-color: #e8f9ed;
+            color: #27ae60;
+        }
+        .hidden {
+            display: none;
+        }
+        .table-responsive {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--background-color);
+            font-weight: 600;
+        }
+        #notifications-panel {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .notification-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ced4da;
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        .notification-item strong {
+            color: var(--primary-color);
+        }
+        .notification-item i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login-section">
+            <header>
+                <h1>Panel de Administrador</h1>
+            </header>
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" placeholder="admin">
+                </div>
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" placeholder="1234">
+                </div>
+                <button class="btn" onclick="login()">Ingresar</button>
+                <div id="login-feedback" class="feedback-message"></div>
+            </div>
+        </div>
+
+        <div id="admin-section" class="hidden">
+            <header>
+                <h1>Gestión de Vehículos y Accesos</h1>
+            </header>
+            
+            <section class="registro-vehiculos">
+                <h3>Registro de Nuevo Vehículo</h3>
+                <div class="form-group">
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca" placeholder="Ej: Toyota">
+                </div>
+                <div class="form-group">
+                    <label for="placa">Placa</label>
+                    <input type="text" id="placa" placeholder="Ej: ABC-123">
+                </div>
+                <div class="form-group">
+                    <label for="propietario">Propietario</label>
+                    <input type="text" id="propietario" placeholder="Ej: Juan Pérez">
+                </div>
+                <button class="btn" onclick="registrarVehiculo()">Registrar Vehículo</button>
+                <div id="register-feedback" class="feedback-message"></div>
+            </section>
+            
+            <section class="historial-accesos">
+                <h3>Historial de Accesos</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Placa</th>
+                                <th>Propietario</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-registros">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // ========= PATRONES DE DISEÑO =========
+
+        // Observer (EventBus)
+        class EventBus {
+            constructor() { this.subscribers = {}; }
+            subscribe(topic, handler) {
+                if (!this.subscribers[topic]) { this.subscribers[topic] = []; }
+                this.subscribers[topic].push(handler);
+            }
+            publish(topic, data) {
+                if (this.subscribers[topic]) {
+                    this.subscribers[topic].forEach(handler => handler(data));
+                }
+            }
+        }
+        const bus = new EventBus();
+
+        // Factory
+        class UsuarioFactory {
+            static crearUsuario(tipo, usuario, contrasena) {
+                switch(tipo) {
+                    case "Administrador": return { tipo, usuario, contrasena };
+                    default: return null;
+                }
+            }
+        }
+
+        // Adapter
+        class LoggerAdapter {
+            static registrar(mensaje) {
+                console.log(`[LOG] ${mensaje}`);
+            }
+        }
+
+        // ========= UTILIDADES =========
+
+        function showFeedback(id, message, isError = true) {
+            const feedback = document.getElementById(id);
+            feedback.textContent = message;
+            feedback.className = `feedback-message ${isError ? 'error' : 'success'}`;
+            setTimeout(() => { feedback.style.opacity = '0'; }, 3000);
+            feedback.style.opacity = '1';
+        }
+
+        // ========= ADMIN LOGIC =========
+
+        let admin = null;
+
+        async function login() {
+            const user = document.getElementById("usuario").value;
+            const pass = document.getElementById("contrasena").value;
+            if (user === "admin" && pass === "1234") {
+                admin = UsuarioFactory.crearUsuario("Administrador", user, pass);
+                document.getElementById("login-section").classList.add("hidden");
+                document.getElementById("admin-section").classList.remove("hidden");
+                await cargarHistorial();
+            } else {
+                showFeedback("login-feedback", "Credenciales incorrectas. Intente de nuevo.");
+            }
+        }
+
+        async function registrarVehiculo() {
+            const marca = document.getElementById("marca").value;
+            const placa = document.getElementById("placa").value;
+            const propietario = document.getElementById("propietario").value;
+            
+            if (!marca || !placa || !propietario) {
+                showFeedback("register-feedback", "⚠️ Todos los campos son obligatorios.");
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/registrar-vehiculo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ marca, placa, propietario })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showFeedback("register-feedback", data.mensaje, false);
+                    bus.publish("vehiculo_registrado", `Vehículo <strong>${placa}</strong> registrado por ${propietario}`);
+                    document.getElementById("marca").value = '';
+                    document.getElementById("placa").value = '';
+                    document.getElementById("propietario").value = '';
+                    await cargarHistorial();
+                } else {
+                    showFeedback("register-feedback", `Error: ${data.error}`);
+                }
+            } catch (error) {
+                console.error('Error al conectar con la API:', error);
+                showFeedback("register-feedback", "Error al registrar. Verifique si el servidor está funcionando.");
+            }
+        }
+
+        async function cargarHistorial() {
+            const tabla = document.getElementById("tabla-registros");
+            tabla.innerHTML = '';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/accesos');
+                const registros = await response.json();
+                
+                if (response.ok) {
+                    registros.forEach(r => {
+                        const newRow = tabla.insertRow(-1);
+                        newRow.innerHTML = `<td>${r.marca}</td><td>${r.placa}</td><td>${r.propietario}</td><td>${r.fecha}</td>`;
+                    });
+                } else {
+                    console.error('Error al cargar historial:', registros.error);
+                    showFeedback("register-feedback", `Error: ${registros.error}`);
+                }
+            } catch (error) {
+                console.error('Error de red al cargar historial:', error);
+                showFeedback("register-feedback", "Error de conexión al cargar historial.");
+            }
+        }
+
+        function logout() {
+            document.getElementById("admin-section").classList.add("hidden");
+            document.getElementById("login-section").classList.remove("hidden");
+            document.getElementById("usuario").value = "";
+            document.getElementById("contrasena").value = "";
+            admin = null;
+        }
+
+    </script>
+</body>
+</html>

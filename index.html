@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Seguridad - Urbanización</title>
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .carousel-item {
+      height: 100vh;
+      min-height: 400px;
+      background-size: cover;
+      background-position: center;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.5);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .counter {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+    .testimonial {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 50%;
+      display: none;
+    }
+    footer {
+      background: #343a40;
+      color: #fff;
+      padding: 30px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Seguridad</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#roles">Roles</a></li>
+          <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<!-- CARRUSEL -->
+<div id="inicio" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#inicio" data-slide-to="0" class="active"></li>
+    <li data-target="#inicio" data-slide-to="1"></li>
+  </ol>
+  <div class="carousel-inner">
+    <!-- Primer slide -->
+    <div class="carousel-item active" style="background-image: url('https://superinventos.blog/wp-content/uploads/2025/05/guia-de-camaras-de-vigilancia-y-seguirdad.jpg?w=1084'); background-size: cover; background-position: center; height: 70vh;">
+      <div class="overlay d-flex align-items-center justify-content-center text-center text-white" style="background: rgba(0,0,0,0.5); height: 100%;">
+        <h1 class="display-4 font-weight-bold">Bienvenido al Sistema de Seguridad</h1>
+      </div>
+    </div>
+
+    <!-- Segundo slide -->
+    <div class="carousel-item" style="background-image: url('https://www.prosegur.com.co/dam-alarms/jcr:c6ecf22d-15e5-4905-b429-0c24ba71ea4f/COL%20-%20Pill%20Promo%202025.png'); background-size: cover; background-position: center; height: 70vh;">
+      <div class="overlay d-flex align-items-center justify-content-center text-center text-white" style="background: rgba(0,0,0,0.5); height: 100%;">
+        <h1 class="display-4 font-weight-bold">Protección las 24 horas</h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controles -->
+  <a class="carousel-control-prev" href="#inicio" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#inicio" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Siguiente</span>
+  </a>
+</div>
+
+
+  <!-- NOSOTROS -->
+  <section id="about" class="py-5">
+    <div class="container text-center">
+      <h2>Sobre Nosotros</h2>
+      <p>Brindamos un sistema de seguridad integral para urbanizaciones y empresas.</p>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Roles del Sistema</h2>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <i class="fas fa-user-cog fa-3x mb-3 text-primary"></i>
+              <h5>Administrador</h5>
+              <p>Gestiona usuarios, reportes y configuraciones.</p>
+              <a href="Administrador.html" class="btn btn-primary">Entrar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <i class="fas fa-shield-alt fa-3x mb-3 text-success"></i>
+              <h5>Operador de Seguridad</h5>
+              <p>Monitorea accesos, cámaras y alarmas.</p>
+              <a href="OperadorSeguridad.html" class="btn btn-success">Entrar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <i class="fas fa-user-shield fa-3x mb-3 text-warning"></i>
+              <h5>Celador</h5>
+              <p>Realiza rondas de vigilancia y control de accesos.</p>
+              <a href="Celador.html" class="btn btn-warning">Entrar</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <i class="fas fa-users fa-3x mb-3 text-danger"></i>
+              <h5>Residentes</h5>
+              <p>Acceso a notificaciones y reportes en tiempo real.</p>
+              <a href="Residentes.html" class="btn btn-danger">Entrar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTADORES -->
+  <section class="py-5">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="counter" data-target="120">0</div>
+          <p>Guardias Activos</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="50">0</div>
+          <p>Urbanizaciones</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="15">0</div>
+          <p>Años de Experiencia</p>
+        </div>
+        <div class="col-md-3">
+          <div class="counter" data-target="500">0</div>
+          <p>Residentes Protegidos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- BLOG -->
+<section id="blog" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 font-weight-bold">📢 Últimas Noticias</h2>
+    <div class="row">
+
+      <!-- Post 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+          <img src="https://nacioncolombia.com/wp-content/uploads/2025/01/image-79.jpg" class="card-img-top" alt="Nuevas cámaras instaladas">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Nuevas cámaras instaladas</h5>
+            <p class="card-text text-muted">Se amplió la red de vigilancia en la zona norte.</p>
+            <a href="#" class="btn btn-outline-primary btn-block">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+          <img src="https://media.licdn.com/dms/image/v2/D4D12AQEtUv8ffdJGdA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1665406159071?e=2147483647&v=beta&t=mLKOsN-fwpVjczEJp6OfX6Fu9ePCVE3Y0W8nlMk88Cs" class="card-img-top" alt="Capacitación a celadores">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">Capacitación a celadores</h5>
+            <p class="card-text text-muted">Mejora continua en protocolos de seguridad.</p>
+            <a href="#" class="btn btn-outline-primary btn-block">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+          <img src="https://www.hipcam.com/images/modulo_blog_upload/blog_seguridad_en_tus_manos.png" class="card-img-top" alt="App de residentes">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">App de residentes</h5>
+            <p class="card-text text-muted">Notificaciones y reportes en tiempo real.</p>
+            <a href="#" class="btn btn-outline-primary btn-block">Leer más</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- CONTACTO -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Contáctanos</h2>
+      <form action="php/contact.php" method="POST">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="name" placeholder="Nombre">
+          </div>
+          <div class="form-group col-md-6">
+            <input type="email" class="form-control" name="email" placeholder="Correo">
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="message" rows="4" placeholder="Mensaje"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Enviar Mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- MAPA -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Ubicación</h2>
+      <div class="embed-responsive embed-responsive-21by9">
+        <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.818829177836!2d-74.08175428523793!3d4.609710343647086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a4f3a44b1f%3A0x53f06c7c7d0d5d2f!2sBogotá!5e0!3m2!1ses!2sco!4v1615151204923!5m2!1ses!2sco" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-center">
+    <p>&copy; 2025 Sistema de Seguridad. Todos los derechos reservados.</p>
+    <div>
+      <a href="#" class="text-white mx-2"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+
+  <!-- Botón volver arriba -->
+  <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Contadores animados
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 100;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 50);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+
+    // Botón volver arriba
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

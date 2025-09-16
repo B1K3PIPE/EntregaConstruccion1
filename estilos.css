@@ -1,0 +1,114 @@
+/* ================================
+   Estilos generales del sistema
+   ================================ */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background: #004466;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+section {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+h2, h3 {
+    color: #004466;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background: #004466;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #006699;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #004466;
+    color: white;
+}
+
+#log, #notificaciones, #mensajes {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 6px;
+}
+
+video {
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #004466;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Chat mensajes diferenciados */
+#mensajes div {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#mensajes div:nth-child(odd) {
+    background: #e1f5fe;
+    text-align: left;
+}
+
+#mensajes div:nth-child(even) {
+    background: #fff9c4;
+    text-align: right;
+}
